@@ -24,209 +24,76 @@ namespace CheckInSystem
                     break;
             }
         }
-
-
         public static void DisplayAirlines()
         {
-            AnsiConsole.MarkupLine("[bold yellow]Welcome to the Check-In System![/]");
+            AnsiConsole.Clear();
+            AnsiConsole.Write(new FigletText("Airport Check-In").Color(Color.Blue));
 
-            var airlineList = new List<string> { "Scandinavian Airlines (SAS)", "Norwegian", "Sunclass Airlines", "British Airways", "Emirates", "Qatar Airways", "Finnair", "PopulAir", "Eurowings", "Lufthansa", "Brussels Airlines", "Icelandair", "Thai Airways", "Air France", "NyxAir", "Delta Airlines", "United Airlines", "Norse Atlantic", "TUI", "Air China", "All Nippon Airways (ANA)", "Iberia", "Ryanair", "TAP" };
+            // Choose Airline
+            var selectedAirline = AnsiConsole.Prompt(
+                new SelectionPrompt<Airline>()
+                    .Title("Please select [bold green]your airline[/]:")
+                    .PageSize(50)
+                    .UseConverter(airline => airline.Name) // Show airline name in the selection
+                    .AddChoices(FlightData.Airlines));
 
-            var airline = AnsiConsole.Prompt(
-                new SelectionPrompt<string>()
-                    .Title("Select an [green]airline[/]:")
-                    .PageSize(40)
-                    .AddChoices(airlineList));
-
-            AnsiConsole.MarkupLine("[bold blue]You selected: [green]{0}[/][/]", airline);
-            DisplayFlights(airline);
-
+            // Choose Flight
+            DisplayFlights(selectedAirline);
         }
 
-        public static void DisplayFlights(string airline)
+        public static void DisplayFlights(Airline airline)
         {
-            if (airline == "Scandinavian Airlines (SAS)")
-            {
-                // Display flights for Scandinavian Airlines
-                AnsiConsole.MarkupLine("[bold cyan]Flights for Scandinavian Airlines:[/]");
-                
-                // Add code to display flights for Scandinavian Airlines
-            }
+            AnsiConsole.Clear();
+            AnsiConsole.Write(new FigletText("Select Flight").Color(Color.Green));
 
-            else if (airline == "Norwegian")
-            {
-                // Display flights for Norwegian
-                AnsiConsole.MarkupLine("[bold cyan]Flights for Norwegian:[/]");
-                // Add code to display flights for Norwegian
-            }
+            // Choose Flight from the selected airline
+            var selectedFlight = AnsiConsole.Prompt(
+                new SelectionPrompt<Flight>()
+                    .Title($"Please select [bold green]your flight[/] for {airline.Name}:")
+                    .PageSize(50)
+                    .AddChoices(airline.Flights));
 
-            else if (airline == "Sunclass Airlines")
-            {
-                // Display flights for Sunclass Airlines
-                AnsiConsole.MarkupLine("[bold cyan]Flights for Sunclass Airlines:[/]");
-                // Add code to display flights for Sunclass Airlines
-            }
-
-            else if (airline == "British Airways")
-            {
-                // Display flights for British Airways
-                AnsiConsole.MarkupLine("[bold cyan]Flights for British Airways:[/]");
-                // Add code to display flights for British Airways
-            }
-
-            else if (airline == "Emirates")
-            {
-                // Display flights for Emirates
-                AnsiConsole.MarkupLine("[bold cyan]Flights for Emirates:[/]");
-                // Add code to display flights for Emirates
-            }
-
-            else if (airline == "Qatar Airways")
-            {
-                // Display flights for Qatar Airways
-                AnsiConsole.MarkupLine("[bold cyan]Flights for Qatar Airways:[/]");
-                // Add code to display flights for Qatar Airways
-            }
-
-            else if (airline == "Finnair")
-            {
-                // Display flights for Finnair
-                AnsiConsole.MarkupLine("[bold cyan]Flights for Finnair:[/]");
-                // Add code to display flights for Finnair
-            }
-
-            else if (airline == "PopulAir")
-            {
-                // Display flights for PopulAir
-                AnsiConsole.MarkupLine("[bold cyan]Flights for PopulAir:[/]");
-                // Add code to display flights for PopulAir
-            }
-
-            else if (airline == "Eurowings")
-            {
-                // Display flights for Eurowings
-                AnsiConsole.MarkupLine("[bold cyan]Flights for Eurowings:[/]");
-                // Add code to display flights for Eurowings
-            }
-
-            else if (airline == "Lufthansa")
-            {
-                // Display flights for Lufthansa
-                AnsiConsole.MarkupLine("[bold cyan]Flights for Lufthansa:[/]");
-                // Add code to display flights for Lufthansa
-            }
-
-            else if (airline == "Brussels Airlines")
-            {
-                // Display flights for Brussels Airlines
-                AnsiConsole.MarkupLine("[bold cyan]Flights for Brussels Airlines:[/]");
-                // Add code to display flights for Brussels Airlines
-            }
-
-            else if (airline == "Icelandair")
-            {
-                // Display flights for Icelandair
-                AnsiConsole.MarkupLine("[bold cyan]Flights for Icelandair:[/]");
-                // Add code to display flights for Icelandair
-            }
-
-            else if (airline == "Thai Airways")
-            {
-                // Display flights for Thai Airways
-                AnsiConsole.MarkupLine("[bold cyan]Flights for Thai Airways:[/]");
-                // Add code to display flights for Thai Airways
-            }
-
-            else if (airline == "Air France")
-            {
-                // Display flights for Air France
-                AnsiConsole.MarkupLine("[bold cyan]Flights for Air France:[/]");
-                // Add code to display flights for Air France
-            }
-
-            else if (airline == "NyxAir")
-            {
-                // Display flights for NyxAir
-                AnsiConsole.MarkupLine("[bold cyan]Flights for NyxAir:[/]");
-                // Add code to display flights for NyxAir
-            }
-
-            else if (airline == "Delta Airlines")
-            {
-                // Display flights for Delta Airlines
-                AnsiConsole.MarkupLine("[bold cyan]Flights for Delta Airlines:[/]");
-                // Add code to display flights for Delta Airlines
-            }
-
-            else if (airline == "United Airlines")
-            {
-                // Display flights for United Airlines
-                AnsiConsole.MarkupLine("[bold cyan]Flights for United Airlines:[/]");
-                // Add code to display flights for United Airlines
-            }
-
-            else if (airline == "Norse Atlantic")
-            {
-                // Display flights for Norse Atlantic
-                AnsiConsole.MarkupLine("[bold cyan]Flights for Norse Atlantic:[/]");
-                // Add code to display flights for Norse Atlantic
-            }
-
-            else if (airline == "TUI")
-            {
-                // Display flights for TUI
-                AnsiConsole.MarkupLine("[bold cyan]Flights for TUI:[/]");
-                // Add code to display flights for TUI
-            }
-
-            else if (airline == "Air China")
-            {
-                // Display flights for Air China
-                AnsiConsole.MarkupLine("[bold cyan]Flights for Air China:[/]");
-                // Add code to display flights for Air China
-            }
-
-            else if (airline == "All Nippon Airways (ANA)")
-            {
-                // Display flights for All Nippon Airways (ANA)
-                AnsiConsole.MarkupLine("[bold cyan]Flights for All Nippon Airways (ANA):[/]");
-                // Add code to display flights for All Nippon Airways (ANA)
-            }
-
-            else if (airline == "Iberia")
-            {
-                // Display flights for Iberia
-                AnsiConsole.MarkupLine("[bold cyan]Flights for Iberia:[/]");
-                // Add code to display flights for Iberia
-            }
-
-            else if (airline == "Ryanair")
-            {
-                // Display flights for Ryanair
-                AnsiConsole.MarkupLine("[bold cyan]Flights for Ryanair:[/]");
-                // Add code to display flights for Ryanair
-            }
-
-            else if (airline == "TAP")
-            {
-                // Display flights for TAP
-                AnsiConsole.MarkupLine("[bold cyan]Flights for TAP:[/]");
-                // Add code to display flights for TAP
-            }
-
-            else 
-            {
-                AnsiConsole.MarkupLine("[bold red]Invalid airline selection.[/]");
-            }
-
-
-
-
-            // This method can be implemented to display flights for the selected airline
-        }
-
-
-
+            // Proceed to check-in
+            AnsiConsole.MarkupLine($"You have selected flight [bold yellow]{selectedFlight.Number}[/] to [bold yellow]{selectedFlight.Destination}[/]. With departure time [bold yellow]{selectedFlight.Departure}[/]");
+            AnsiConsole.MarkupLine("[bold white]In the next step, you will be asked to enter your personal information for check-in.[/]");
+            DisplayBagaggeInfo();
 
         }
+
+        public static void DisplayBagaggeInfo()
+        {
+            AnsiConsole.Clear();
+            AnsiConsole.Write(new FigletText("Bagagge Info").Color(Color.DarkRed_1));
+
+            // Let user choose bagagge type
+            var selectedBagagge = AnsiConsole.Prompt(
+                new SelectionPrompt<Luggage>()
+                    .Title($"Please select [bold green]your bagagge type to check in[/]:")
+                    .UseConverter(luggage => $"{luggage.Name} - Quantity: {luggage.Quantity}, Weight: {luggage.Weight}, Dimensions: {luggage.Dimensions}") // Show luggage details in the selection
+                    .PageSize(50)
+                    .AddChoices(BagaggeInfo.Luggages));
+            var amount = AnsiConsole.Ask<int>($"How many [bold green]{selectedBagagge.Name}[/] would you like to check in?");
+            selectedBagagge.Quantity = amount;
+
+            // Inform the user about their selection and then, proceed to passenger info
+            AnsiConsole.MarkupLine($"You have selected [bold yellow]{selectedBagagge.Name}[/] with quantity [bold yellow]{amount}[/], weight [bold yellow]{selectedBagagge.Weight}[/], and dimensions [bold yellow]{selectedBagagge.Dimensions}[/].");
+            AnsiConsole.MarkupLine("[bold white]In the next step, you will be asked to enter your personal information for check-in.[/]");
+            Console.ReadLine();
+            DisplayPassengerInfo();
+        }
+
+        // Display passenger information
+        public static void DisplayPassengerInfo()
+        {
+            AnsiConsole.Clear();
+            AnsiConsole.Write(new FigletText("Passenger Info").Color(Color.Green));
+            // Prompt for passenger information
+            var name = AnsiConsole.Ask<string>("Please enter your [bold green]full name[/]:");
+            var passportNumber = AnsiConsole.Ask<string>("Please enter your [bold green]passport number[/]:");
+            // Here you can add more prompts for additional passenger information as needed
+            AnsiConsole.MarkupLine($"Thank you, [bold yellow]{name}[/]. Your check-in is complete!");
+        }
+
+    }
+
 }
